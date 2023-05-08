@@ -30,7 +30,11 @@ public class BTC_price {
         this.id = id;
     }
 
-//    public void setTime(Date time) {
+    public String getTime() {
+        return time;
+    }
+
+    //    public void setTime(Date time) {
 //        this.time = time;
 //    }
 
@@ -41,6 +45,8 @@ public class BTC_price {
     public BTC_price(Integer value, String time) {
         this.value = value;
         this.time = time;
+    }
 
+    public BTC_price() {
     }
 }

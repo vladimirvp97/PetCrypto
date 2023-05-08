@@ -1,4 +1,4 @@
-package pet_crypto.Request;
+package pet_crypto_viewer;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -17,7 +17,7 @@ import pet_crypto_viewer.Service;
 public class Requester {
     @Autowired
     Service service;
-    @Scheduled(fixedDelay = 3000)
+    @Scheduled(fixedDelay = 10000)
     public void scheduledRequestPriceBTC() throws Exception {
         String externalServerUrl = "https://api.blockchain.com/v3/exchange/tickers/BTC-USD";
 
