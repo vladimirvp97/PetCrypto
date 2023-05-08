@@ -27,5 +27,5 @@ public class Service {
         BTC_price btcEntity = new BTC_price(price24h, sdf.format(new Date()));
         dao.saveBTC(btcEntity);
     }
-    
+
 }

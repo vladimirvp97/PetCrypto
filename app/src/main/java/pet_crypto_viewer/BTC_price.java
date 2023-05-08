@@ -21,10 +21,7 @@ public class BTC_price {
         return id;
     }
 
-//    public Date getTime() {
-//        return time;
-//    }
-//
+
     public Integer getValue() {
         return value;
     }
