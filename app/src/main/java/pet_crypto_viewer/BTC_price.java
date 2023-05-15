@@ -34,9 +34,6 @@ public class BTC_price {
         return time;
     }
 
-    //    public void setTime(Date time) {
-//        this.time = time;
-//    }
 
     public void setValue(Integer value) {
         this.value = value;
