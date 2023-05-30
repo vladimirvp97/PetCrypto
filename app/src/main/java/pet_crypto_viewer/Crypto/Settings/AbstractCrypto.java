@@ -1,20 +1,8 @@
-package pet_crypto_viewer;
+package pet_crypto_viewer.Crypto.Settings;
 
-import javax.persistence.*;
-import java.util.Date;
-
-@Entity
-@Table(name = "btc_price")
-public class BTC_price {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE)
+public abstract class AbstractCrypto {
     private Integer id;
-
-    @Column(name = "time")
     private String time;
-
-    @Column(name = "value")
     private Integer value;
 
     public Integer getId() {
@@ -39,11 +27,11 @@ public class BTC_price {
         this.value = value;
     }
 
-    public BTC_price(Integer value, String time) {
+    public AbstractCrypto(Integer value, String time) {
         this.value = value;
         this.time = time;
     }
 
-    public BTC_price() {
+    public AbstractCrypto() {
     }
 }

@@ -1,0 +1,53 @@
+package pet_crypto_viewer.Crypto;
+
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Objects;
+
+@Entity
+@Table(name = "Currency")
+public class Currency {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "name")
+    private String str;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getStr() {
+        return str;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
+    }
+
+    public Currency() {
+    }
+
+    public Currency(Integer id, String name){
+        this.id = id;
+        this.str = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Currency currency = (Currency) o;
+        return Objects.equals(id, currency.id) && Objects.equals(str, currency.str);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, str);
+    }
+}
