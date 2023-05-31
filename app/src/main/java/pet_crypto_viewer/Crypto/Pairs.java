@@ -3,6 +3,7 @@ package pet_crypto_viewer.Crypto;
 
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Objects;
 
 @Entity
@@ -27,7 +28,7 @@ public class Pairs {
 
 
     @Column(name = "time")
-    private String time;
+    private Instant time;
 
     public Currency getFirst_currency() {
         return first_currency;
@@ -50,7 +51,7 @@ public class Pairs {
     }
 
 
-    public String getTime() {
+    public Instant getTime() {
         return time;
     }
 
@@ -62,7 +63,7 @@ public class Pairs {
         this.id = id;
     }
 
-    public void setTime(String time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 
@@ -70,7 +71,7 @@ public class Pairs {
         this.value = value;
     }
 
-    public Pairs(Integer value, String time) {
+    public Pairs(Integer value, Instant time) {
         this.value = value;
         this.time = time;
     }
