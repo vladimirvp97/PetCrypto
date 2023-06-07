@@ -3,6 +3,7 @@ package pet_crypto_viewer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationEventPublisher;
 
 @SpringBootApplication
 public class SpringBootApp {

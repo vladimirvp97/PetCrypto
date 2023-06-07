@@ -4,6 +4,8 @@ package pet_crypto_viewer.Crypto;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -24,8 +26,8 @@ public class Pairs {
     private Currency second_currency;
 
     @Column(name = "value")
-    private Integer value;
-
+    private Double value;
+;
 
     @Column(name = "time")
     private Instant time;
@@ -46,13 +48,20 @@ public class Pairs {
         this.second_currency = second_currency;
     }
 
-    public Integer getValue() {
+    public Double getValue() {
         return value;
     }
 
 
     public Instant getTime() {
+
         return time;
+    }
+
+    public String getConciseTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss 'UTC'")
+                .withZone(ZoneOffset.UTC);
+        return formatter.format(time);
     }
 
     public Integer getId() {
@@ -67,11 +76,11 @@ public class Pairs {
         this.time = time;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public Pairs(Integer value, Instant time) {
+    public Pairs(Double value, Instant time) {
         this.value = value;
         this.time = time;
     }

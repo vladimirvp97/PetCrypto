@@ -33,8 +33,8 @@ public class Currency {
     public Currency() {
     }
 
-    public Currency(Integer id, String name){
-        this.id = id;
+    public Currency(String name){
+
         this.str = name;
     }
 

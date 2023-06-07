@@ -19,8 +19,19 @@ public class DAO {
 
 
     public void saveBTC(Pairs cryptoEntity) {
-
         em.persist(cryptoEntity);
+        em.flush();
+    }
+
+    public void saveCurrency(Currency currency) {
+        Query query = em.createQuery("select id from Currency where name = :name");
+        query.setParameter("name", currency.getStr());
+        Integer obtainedValue;
+        try {
+            obtainedValue = (Integer) query.getSingleResult();
+        } catch (Exception e) {
+            em.persist(currency);
+        }
         em.flush();
     }
 
@@ -34,7 +45,12 @@ public class DAO {
     public Integer getIdOfCurrencyByName(String currency) {
         Query query = em.createQuery("select id from Currency where name = :name");
         query.setParameter("name", currency);
-        Integer obtainedValue = (Integer) query.getSingleResult();
+        Integer obtainedValue = null;
+        try {
+            obtainedValue = (Integer) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
         return obtainedValue;
     }
 
