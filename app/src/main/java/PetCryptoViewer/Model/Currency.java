@@ -1,9 +1,8 @@
-package pet_crypto_viewer.Crypto;
+package PetCryptoViewer.Model;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
-
+// В этой таблице перчислены все доступные валюты
 @Entity
 @Table(name = "Currency")
 public class Currency {

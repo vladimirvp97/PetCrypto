@@ -1,4 +1,4 @@
-package pet_crypto_viewer.Crypto;
+package PetCryptoViewer.Model;
 
 
 
@@ -7,9 +7,8 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-
+//Здесь будут сохранены валютные пары(указание валюты является внешним ключом к таблице Currency), время получения и значение.
 @Entity
-//@IdClass(CompositePK.class)
 @Table(name = "Pairs")
 public class Pairs {
 
@@ -27,7 +26,7 @@ public class Pairs {
 
     @Column(name = "value")
     private Double value;
-;
+
 
     @Column(name = "time")
     private Instant time;
