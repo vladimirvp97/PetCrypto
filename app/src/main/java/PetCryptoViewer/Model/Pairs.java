@@ -34,6 +34,10 @@ public class Pairs {
     @Column(name = "time")
     private Instant time;
 
+    public Pairs(Double value, Instant time) {
+        this.value = value;
+        this.time = time;
+    }
 
     public String getConciseTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss 'UTC'")

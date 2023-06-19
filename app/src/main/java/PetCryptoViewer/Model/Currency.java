@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Objects;
+
 // В этой таблице перчислены все доступные валюты
 @Entity
 @Data @NoArgsConstructor
@@ -16,5 +16,9 @@ public class Currency {
 
     @Column(name = "name")
     private String str;
+
+    public Currency(String str) {
+        this.str = str;
+    }
 
 }

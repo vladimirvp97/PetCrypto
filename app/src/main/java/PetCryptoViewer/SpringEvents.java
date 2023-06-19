@@ -1,6 +1,7 @@
 package PetCryptoViewer;
 
 import PetCryptoViewer.Client.BlockChainClient;
+import PetCryptoViewer.DAO.DAOofCurrency;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +17,7 @@ public class SpringEvents implements ApplicationListener<ContextRefreshedEvent> 
     @Autowired
     BlockChainClient blockChainClient;
     @Autowired
-    PetCryptoViewer.DAO.DAOofCurrency DAOofCurrency;
+    DAOofCurrency daOofCurrency;
     @Autowired
     ObjectMapper objectMapper;
 
@@ -40,8 +41,8 @@ public class SpringEvents implements ApplicationListener<ContextRefreshedEvent> 
                 JsonNode node = rootNode.get(i);
                 String pair = node.get("symbol").toString();
                 int delimiterIndex = pair.indexOf("-"); // от API мы получаем валютную пару в виде BTC-USD, поэтому ее нужно разделить на две части
-                DAOofCurrency.saveCurrency(new Currency(pair.substring(1, delimiterIndex)));
-                DAOofCurrency.saveCurrency(new Currency(pair.substring(delimiterIndex + 1, pair.length() - 1)));
+                daOofCurrency.saveCurrency(new Currency(pair.substring(1, delimiterIndex)));
+                daOofCurrency.saveCurrency(new Currency(pair.substring(delimiterIndex + 1, pair.length() - 1)));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
