@@ -1,5 +1,6 @@
 package PetCryptoViewer;
 
+import PetCryptoViewer.Client.BlockChainClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,11 +17,13 @@ import java.time.Instant;
 @Component
 public class Service  {
     @Autowired
-    private DAOofPairs DAOofPairs;
+    private PetCryptoViewer.DAO.DAOofPairs DAOofPairs;
     @Autowired
-    private DAOofCurrency DAOofCurrency;
+    private PetCryptoViewer.DAO.DAOofCurrency DAOofCurrency;
     @Autowired
     private BlockChainClient blockChainClient;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public Pairs getValueByNameOfCurrencies(String curr1, String curr2) throws Exception {
         Integer id1 = DAOofCurrency.getIdOfCurrencyByName(curr1);
@@ -53,7 +56,7 @@ public class Service  {
     }
     public Pairs extractAndPushPairsPrice(String responseJSON, String nameOfCurr1, String nameOfCurr2) throws JsonProcessingException {
 
-        JsonNode rootNode = new ObjectMapper().readTree(responseJSON);
+        JsonNode rootNode = objectMapper.readTree(responseJSON);
         Double price24h = rootNode.get("last_trade_price").asDouble();
 
         Pairs currencyPair = new Pairs(price24h, Instant.now());
@@ -67,8 +70,7 @@ public class Service  {
     public void additionalCurrenciesParser() {
         try {
             String json = blockChainClient.getAllSymbols();
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode rootNode = mapper.readTree(json);
+            JsonNode rootNode = objectMapper.readTree(json);
             for (int i = 0; i < rootNode.size(); i++){
                 JsonNode node = rootNode.get(i);
                 String pair = node.get("symbol").toString();

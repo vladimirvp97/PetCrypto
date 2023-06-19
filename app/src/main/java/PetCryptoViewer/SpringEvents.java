@@ -1,5 +1,6 @@
 package PetCryptoViewer;
 
+import PetCryptoViewer.Client.BlockChainClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,11 +11,15 @@ import PetCryptoViewer.Model.Currency;
 
 import java.io.IOException;
 //// Пополняет(если у внешнего API есть новые значения) таблицу Currency в момент запуска приложения(после окончания формирования ApplicationContext)
+
 public class SpringEvents implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     BlockChainClient blockChainClient;
     @Autowired
-    DAOofCurrency DAOofCurrency;
+    PetCryptoViewer.DAO.DAOofCurrency DAOofCurrency;
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -22,21 +27,24 @@ public class SpringEvents implements ApplicationListener<ContextRefreshedEvent> 
         try {
             json = blockChainClient.getAllSymbols();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Empty data from foreign API", e);
         }
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = null;
         try {
-            rootNode = mapper.readTree(json);
+            rootNode = objectMapper.readTree(json);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < rootNode.size(); i++){
-            JsonNode node = rootNode.get(i);
-            String pair = node.get("symbol").toString();
-            int delimiterIndex = pair.indexOf("-"); // от API мы получаем валютную пару в виде BTC-USD, поэтому ее нужно разделить на две части
-            DAOofCurrency.saveCurrency(new Currency(pair.substring(1, delimiterIndex)));
-            DAOofCurrency.saveCurrency(new Currency(pair.substring(delimiterIndex + 1, pair.length() - 1)));
+        try {
+            for (int i = 0; i < rootNode.size(); i++){
+                JsonNode node = rootNode.get(i);
+                String pair = node.get("symbol").toString();
+                int delimiterIndex = pair.indexOf("-"); // от API мы получаем валютную пару в виде BTC-USD, поэтому ее нужно разделить на две части
+                DAOofCurrency.saveCurrency(new Currency(pair.substring(1, delimiterIndex)));
+                DAOofCurrency.saveCurrency(new Currency(pair.substring(delimiterIndex + 1, pair.length() - 1)));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
     }

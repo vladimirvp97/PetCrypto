@@ -1,4 +1,4 @@
-package PetCryptoViewer;
+package PetCryptoViewer.DAO;
 
 import org.springframework.stereotype.Repository;
 import PetCryptoViewer.Model.Currency;
