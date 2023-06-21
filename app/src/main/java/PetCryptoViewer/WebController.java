@@ -1,11 +1,16 @@
 package PetCryptoViewer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import PetCryptoViewer.Model.Pairs;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 //
 // ✅1. Сделать DAOofPairs под каждую сущность
@@ -16,7 +21,7 @@ import PetCryptoViewer.Model.Pairs;
 // ✅6. Почитать про правильное использование ObjectMapper. А именно правильно сократить его избыточное создание.
 // ✅7. Поменять архитектуру в Requester. Что бы он тупо вызывался и возвращал что-то. Как это происходит в контроллере, пусть он возвращает сразу нам значение,
 // а не после еще раз будем обращаться к БД.
-// 8. Сделать архитектуру логичной и объективной. Посмотреть примеры проектов(в дискорде)
+// ✅8. Сделать архитектуру логичной и объективной. Посмотреть примеры проектов(в дискорде)
 // 9. Сделать ручку с получением исторического значения из БД.
 // 10. Разобраться почему нормально не сохраняются повторяющиеся значения в БД. Избежать блока try-catch.
 // 11. После всех этих шагов задеплоить чтобы он подольше поработал.
@@ -25,7 +30,7 @@ public class WebController {
     @Autowired
     private Service service;
     @GetMapping("/")
-    public String showForm() {
+    public String dropIndex() {
         return "index";
     }
     @GetMapping ("/price")
@@ -38,6 +43,14 @@ public class WebController {
         }
 
         return "Value is " + requestedValue.getValue() +  " Time when data recieved: " + requestedValue.getConciseTime();
-
     }
+
+    @GetMapping("/ma")
+    @ResponseBody
+    public Double getMa(@RequestParam String startDate, @RequestParam String endDate, @RequestParam String currency) {
+        return service.computingOfMA(startDate,endDate, currency);
+    }
+
+
+
 }

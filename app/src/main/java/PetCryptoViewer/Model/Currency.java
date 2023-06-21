@@ -7,7 +7,8 @@ import javax.persistence.*;
 
 // В этой таблице перчислены все доступные валюты
 @Entity
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 @Table(name = "Currency")
 public class Currency {
     @Id

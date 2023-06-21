@@ -5,6 +5,8 @@
   <title>Price</title>
 </head>
 <body>
+<h2>Узнать стоимость криптовалюты</h2>
+
 <form action="/price" method="GET">
   <label for="currency1">Currency 1:</label>
   <input type="text" id="currency1" name="currency1"><br><br>
@@ -14,6 +16,22 @@
 
   <input type="submit" value="Go">
   <p>For exmp:<br>BTC/USD, ETH/USD, ADA/USD, SOL/BTC...</p>
+</form>
+
+
+<h2>Узнать скользящую среднюю $</h2>
+
+<form action="/ma" method="GET">
+  <label for="startDate">Start Date:</label>
+  <input type="datetime-local" id="startDate" name="startDate"><br><br>
+
+  <label for="endDate">End Date:</label>
+  <input type="datetime-local" id="endDate" name="endDate"><br><br>
+
+  <label for="currency">Currency(BTC, ETH and ADA):</label>
+  <input type="text" id="currency" name="currency" style="width: 4%;"><br>
+
+  <input type="submit" value="Go">
 </form>
 </body>
 </html>

@@ -17,6 +17,9 @@ import PetCryptoViewer.Model.Currency;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
 
 @EnableScheduling
 @Component
@@ -65,8 +68,8 @@ public class Service  {
         Double price24h = rootNode.get("last_trade_price").asDouble();
 
         Pairs currencyPair = new Pairs(price24h, Instant.now());
-        currencyPair.setFirst_currency(daOofCurrency.getCurrencyById(daOofCurrency.getIdOfCurrencyByName(nameOfCurr1)));
-        currencyPair.setSecond_currency(daOofCurrency.getCurrencyById(daOofCurrency.getIdOfCurrencyByName(nameOfCurr2)));
+        currencyPair.setFirstCurrency(daOofCurrency.getCurrencyById(daOofCurrency.getIdOfCurrencyByName(nameOfCurr1)));
+        currencyPair.setSecondCurrency(daOofCurrency.getCurrencyById(daOofCurrency.getIdOfCurrencyByName(nameOfCurr2)));
 
         daOofPairs.savePair(currencyPair);
         return currencyPair;
@@ -78,6 +81,19 @@ public class Service  {
         blockChainClient.requestToAPI("BTC","USD");
         blockChainClient.requestToAPI("ADA","USD");
         blockChainClient.requestToAPI("ETH","USD");
+    }
+
+    public Double computingOfMA(String startDate, String endDate, String currency){
+        LocalDateTime localDateTime1 = LocalDateTime.parse(startDate);
+        LocalDateTime localDateTime2 = LocalDateTime.parse(endDate);
+        Instant instant1 = localDateTime1.toInstant(ZoneOffset.UTC);
+        Instant instant2 = localDateTime2.toInstant(ZoneOffset.UTC);
+        List<Pairs> resultsList = daOofPairs.getListOfValuesBetweenTheDates(instant1,instant2, daOofCurrency.getIdOfCurrencyByName(currency));
+        double ma = 0;
+        for (int i = 0; i < resultsList.size(); ++i){
+            ma+=resultsList.get(i).getValue();
+        }
+        return ma/resultsList.size();
     }
 
     public void additionalCurrenciesParser() {

@@ -9,10 +9,11 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
+
 //Здесь будут сохранены валютные пары(указание валюты является внешним ключом к таблице Currency), время получения и значение.
 @Entity
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 @Table(name = "Pairs")
 public class Pairs {
 
@@ -22,11 +23,11 @@ public class Pairs {
 
     @ManyToOne
     @JoinColumn(name = "first_currency")
-    private Currency first_currency;
+    private Currency firstCurrency;
 
     @ManyToOne
     @JoinColumn(name = "second_currency")
-    private Currency second_currency;
+    private Currency secondCurrency;
 
     @Column(name = "value")
     private Double value;

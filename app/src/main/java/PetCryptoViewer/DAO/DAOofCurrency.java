@@ -16,6 +16,8 @@ public class DAOofCurrency {
     private EntityManager em;
 
     public void saveCurrency(Currency currency) {
+        Integer check = getIdOfCurrencyByName(currency.getStr());
+        if (check != null) return;
         em.persist(currency);
         em.flush();
     }
@@ -28,6 +30,12 @@ public class DAOofCurrency {
     public Integer getIdOfCurrencyByName(String currency) {
         Query query = em.createQuery("select id from Currency where name = :name");
         query.setParameter("name", currency);
-        return (Integer) query.getSingleResult();
+        Integer result;
+        try {
+            result = (Integer) query.getSingleResult(); // особенность API, что если результата нет то выбрасывается Exception
+        } catch (Exception e) {
+            return null;
+        }
+        return result;
     }
 }
