@@ -22,4 +22,8 @@ public class Currency {
         this.str = str;
     }
 
+    public Currency(Integer id, String str) {
+        this.id = id;
+        this.str = str;
+    }
 }

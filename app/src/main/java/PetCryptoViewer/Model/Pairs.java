@@ -40,6 +40,16 @@ public class Pairs {
         this.time = time;
     }
 
+    public Pairs(Instant time) {
+        this.time = time;
+    }
+
+    public Pairs(Currency firstCurrency, Currency secondCurrency) {
+        this.firstCurrency = firstCurrency;
+        this.secondCurrency = secondCurrency;
+    }
+
+
     public String getConciseTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss 'UTC'")
                 .withZone(ZoneOffset.UTC);

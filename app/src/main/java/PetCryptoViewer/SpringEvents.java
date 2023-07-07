@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import PetCryptoViewer.Model.Currency;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 //// Пополняет(если у внешнего API есть новые значения) таблицу Currency в момент запуска приложения(после окончания формирования ApplicationContext)
 @Component
+@Profile("!test")
 public class SpringEvents implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     BlockChainClient blockChainClient;

@@ -34,14 +34,27 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
-
-
-
 }
+    test {
+        useJUnitPlatform()
+    }
+
+task pushFreshVersion(type: Exec) {
+    doFirst {
+        commandLine 'docker', 'build', '..'
+
+    }
+
+    doFirst {
+        def txt = "ls -l".execute()
+        println txt.text
+    }
+}
+
 
 application {
     // Define the main class for the application.
-    mainClass = 'pet_crypto_viewer.App'
+    mainClass = 'PetCryptoViewer.SpringBootApp'
 }
 
 tasks.named('test') {

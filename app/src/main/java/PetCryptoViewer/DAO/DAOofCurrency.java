@@ -21,7 +21,7 @@ public class DAOofCurrency {
         em.persist(currency);
         em.flush();
     }
-
+    // использовать интеграционный тест. test container
     public Currency getCurrencyById(int id) {
         Currency currency = em.find(Currency.class, id);
         return currency;
