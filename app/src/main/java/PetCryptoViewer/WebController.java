@@ -49,8 +49,8 @@ public class WebController {
 
     @GetMapping("/ma")
     @ResponseBody
-    public Double getMa(@RequestParam String startDate, @RequestParam String endDate, @RequestParam String currency) {
-        return service.computingOfMA(startDate,endDate, currency);
+    public Double getMa(@RequestParam String startDate, @RequestParam String endDate, @RequestParam Integer interval, @RequestParam String currency) {
+        return service.computingOfMA(startDate,endDate,interval,currency);
     }
 
 

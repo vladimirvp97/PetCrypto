@@ -41,13 +41,7 @@ dependencies {
 
 task pushFreshVersion(type: Exec) {
     doFirst {
-        commandLine 'docker', 'build', '..'
-
-    }
-
-    doFirst {
-        def txt = "ls -l".execute()
-        println txt.text
+        commandLine 'gradle', 'build'
     }
 }
 

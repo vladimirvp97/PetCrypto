@@ -83,17 +83,21 @@ public class Service  {
         blockChainClient.requestToAPI("ETH","USD");
     }
 
-    public Double computingOfMA(String startDate, String endDate, String currency){
+    public Double computingOfMA(String startDate, String endDate,Integer interval, String currency){
+        interval = interval/10;
         LocalDateTime localDateTime1 = LocalDateTime.parse(startDate);
         LocalDateTime localDateTime2 = LocalDateTime.parse(endDate);
         Instant instant1 = localDateTime1.toInstant(ZoneOffset.UTC);
         Instant instant2 = localDateTime2.toInstant(ZoneOffset.UTC);
         List<Pairs> resultsList = daOofPairs.getListOfValuesBetweenTheDates(instant1,instant2, daOofCurrency.getIdOfCurrencyByName(currency));
         double ma = 0;
-        for (int i = 0; i < resultsList.size(); ++i){
+        int counter = 0;
+        for (int i = 0; i < resultsList.size(); i+=interval){
             ma+=resultsList.get(i).getValue();
+            ++counter;
+            if (i + interval > resultsList.size()) break; // избегаем ошибки Array index out of bound
         }
-        return ma/resultsList.size();
+        return (ma/counter);
     }
 
     public void additionalCurrenciesParser() {
@@ -110,5 +114,9 @@ public class Service  {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void dop(){
+
     }
 }

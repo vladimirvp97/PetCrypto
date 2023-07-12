@@ -3,8 +3,8 @@ version: "3.8"
 services:
   mysqldb:
     image: mysql:5.7
-    restart: unless-stopped
     container_name: "mysqldb"
+    restart: unless-stopped
     env_file: ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
@@ -16,9 +16,9 @@ services:
   app:
     depends_on:
       - mysqldb
-    build: .
+    image: cr.yandex/crpn16n3u2oc9ut4n7ca/pet-crypto
     container_name: "app"
-    restart: on-failure
+    restart: "no"
     env_file: ./.env
     ports:
       - "8080:8080"
