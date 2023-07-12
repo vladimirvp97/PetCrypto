@@ -18,9 +18,10 @@ blockchain.com, откуда берет значения, сохраняет в 
 -Spring MVC
 -Hibernate
 -MySQL
--Thymeleaf
+-Docker
 -Gradle
 -Git
+-Thymeleaf
 
 ## Как сделать быстрый деплой на свою машину:
 
